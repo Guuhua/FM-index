@@ -1,0 +1,32 @@
+// build the file
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: gcc",
+			// specifies the program to run
+			"command": "D:\\MinGW\\bin\\gcc.exe",
+			// specifies the command-line arguments that will be passed to gcc
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${workspaceFolder}\\*.c",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				// specifies that this task will be run when you press Ctrl+Shift+B
+				"isDefault": true
+			},
+			"detail": "编译器: D:\\MinGW\\bin\\gcc.exe"
+		}
+	]
+}
