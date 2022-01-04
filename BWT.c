@@ -1,18 +1,19 @@
 #include "bwt.h"
 
 
-void init(char **strs)
+char *init(char *strs)
 {
-    int length = strlen(*strs);
-    if ((*strs)[length-1] != '$')
+    int length = strlen(strs);
+    if ((strs)[length-1] != '$')
     {
         char *p = (char *)malloc(sizeof(char) * (length + 2));
-        strcpy(p, *strs);
+        strcpy(p, strs);
         p[length] = '$';
         p[length+1] = '\0';
-        free(*strs);
-        *strs = p;
+        free(strs);
+        strs = p;
     }
+    return strs;
 }
 
 int cmp(const void *a, const void *b)
@@ -131,11 +132,11 @@ char *reversebwt(char *strs)
 }
 
 
-char *bwt(char **strs)
+char *bwt(char *strs)
 {
-    init(strs);
-    int *sa = suffixArray(*strs);
-    int length = strlen(*strs);
+    strs = init(strs);
+    int *sa = suffixArray(strs);
+    int length = strlen(strs);
     char *L = (char *)malloc(sizeof(char)*(length+1));
     L[length] = '\0';
     int idx = 0;
@@ -144,27 +145,23 @@ char *bwt(char **strs)
         if (sa[i] == 0)
             L[idx++] = '$';
         else 
-            L[idx++] = (*strs)[sa[i]-1]; 
+            L[idx++] = strs[sa[i]-1]; 
     }
+    free(strs);
     return L;
 }
-
 
 
 int main(void)
 {
     char str[] = "AACTTATAACTAGGGGGGGGGGGGGTTTTTTCACATAATACATATAACCTAACATATTTTTTTTTAACTTATAACTAGGGGGGGGGGGGGTTTTTTCACATAATACATATAACCTAACATATTTTTTTTTTTTTTTTTTTCACATAATATATTAACTAACATATAACCTAACATATATAACTACTAAAACTAACTATAACTAACTATAACTAACATATATTAACTATAACTAACATAACATAACTACTATAACTAACAT";
-    char **pp;
-    char *p = str;
-    pp = &p;
 
-    char *L = bwt(pp);
+    char *L = bwt(str);
     printf("L:%s\n", L);
-    char *F = reversebwt(L);
-    printf("F:%s\n", F);
+    char *T = reversebwt(L);
+    printf("F:%s\n", T);
     free(L);
-    free(F);
-    free(p);
+    free(T);
 
     system("pause");
     return 0; 
