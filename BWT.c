@@ -15,19 +15,6 @@ void init(char **strs)
     }
 }
 
-// int cmp(const void *a, const void *b)
-// {
-//     if (((IntIdx*)a)->num1 > ((IntIdx*)b)->num1)
-//     {
-//         return 1;
-//     }
-//     else if (((IntIdx*)a)->num1 == ((IntIdx*)b)->num1)
-//     {
-//         return ((IntIdx*)a)->num2 - ((IntIdx*)b)->num2;
-//     }
-//     return -1;
-// }
-
 int cmp(const void *a, const void *b)
 {
     if (((int*)a)[1] > ((int*)b)[1])
@@ -47,13 +34,9 @@ int *suffixArray(char *strs)
     int length = strlen(strs);
     int *indx = (int *)malloc(sizeof(int)*length);
     int (*Idxs)[3] = (int (*)[])malloc(sizeof(int[3])*length);
-    // IntIdx *sIdxs = (IntIdx *)malloc(sizeof(IntIdx)*length);
 
     for (int i = 0; i < length; i++)
     {
-        // sIdxs[i].index = i;
-        // sIdxs[i].num1 = strs[i] - '$' + 1;
-        // sIdxs[i].num2 = 1;
         Idxs[i][0] = i;
         Idxs[i][1] = strs[i] - '$' + 1;
         Idxs[i][2] = 1;
@@ -63,11 +46,9 @@ int *suffixArray(char *strs)
     for (int k = 1; k < (length << 2); k <<= 1)
     {
         for (int i = 0; i < length - k; i++)
-            // sIdxs[indx[i]].num2 = sIdxs[indx[i+k]].num1;
             Idxs[indx[i]][2] = Idxs[indx[i+k]][1];
 
         for (int i = length - k; i < length; i++)
-            // sIdxs[indx[i]].num2 = 0;
             Idxs[indx[i]][2] = 0;
 
         qsort(Idxs, length, sizeof(int[3]), cmp);
@@ -75,20 +56,16 @@ int *suffixArray(char *strs)
         int idx = 1;
         for (int i = 0; i < length; i++) 
         {
-            // indx[sIdxs[i].index] = i;
             indx[Idxs[i][0]] = i;
-            // if (i < length - 1 && (!EQUAL(sIdxs[i], sIdxs[i + 1])))
             if (i < length - 1 && (!EQUAL(Idxs[i], Idxs[i + 1])))
-                // sIdxs[i].num1 = idx++;
                 Idxs[i][1] = idx++;
             else
-                // sIdxs[i].num1 = idx;
                 Idxs[i][1] = idx;
         }
         if (idx >= length)
             break;
     }
-    // free(sIdxs);
+    free(Idxs);
     int *sa = (int *)malloc(sizeof(int) * length);
     for (int i = 0; i < length; i++)
         sa[indx[i]] = i;
@@ -102,10 +79,9 @@ int *rankbwt(char *strs)
 {
     int ascii[128] = {0}, length = strlen(strs);
     int *ranks = (int *)malloc(sizeof(int)*length);
-
     for (int i = 0; i < length; i++)
     {
-        int idx = toascii(strs[i]);
+        int idx = strs[i];
         ranks[i] = ascii[idx]++;
     }
     return ranks;
@@ -146,7 +122,7 @@ char *reversebwt(char *strs)
     while (strs[rowi] != '$')
     {
         p[--length] = strs[rowi];
-        int idx = toascii(strs[rowi]);
+        int idx = strs[rowi];
         rowi = F[idx-1] + ranks[rowi];
     }
     free(F);
