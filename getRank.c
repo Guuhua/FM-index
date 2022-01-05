@@ -1,37 +1,52 @@
 #include "getRank.h"
 
 
-int *getRank(char *strs)[]
+int **getRank(char *L)
 {
-    int length = strlen(strs);
-    int *p[128] = {NULL};
-    int count[128] = 0;
-    for (int i = 0; i < length; i++)
+    int length = strlen(L);
+    int **p = (int **)malloc(sizeof(int *)*128);
+    for (int i = 0; i < 128; i++)
     {
-        int idx = strs[i];
-        if (p[idx] == NULL)
-            p[idx] = (int *)malloc(sizeof(int)*(length>>GAP+1));  
+        p[i] = NULL;
     }
+    int count[128] = {0};
+    int letters[128] = {0}, idxletter = 0;
     for (int i = 0; i < length; i++)
     {
-        int idx = strs[i];
+        int idx = L[i];
+        if (p[idx] == NULL)
+        {
+            letters[idxletter++] = idx; 
+            p[idx] = (int *)malloc(sizeof(int)*(length>>GAP+1));  
+        }
+    }
+
+    for (int i = 0; i < length; i++)
+    {
+        int idx = L[i];
         count[idx]++;
-        if ((i & GAP) == 0)
-            p[idx][i>>GAP] = count[idx];
+        if ((i & 15) == 0)
+        {
+            for (int j = 0; j < idxletter; j++)
+            {
+                p[letters[j]][i>>GAP] = count[letters[j]];
+            }
+            
+        }
     }
     return p;
 }
 
-int rank(int *ranks[], char *strs, char c, int offset)
+int rank(int **ranks, char *L, char c, int offset)
 {
     if (offset < 0)
     {
         return 0;
     }
     int numc = 0;
-    while (offset & GAP)
+    while (offset & 15)
     {
-        if (strs[offset] == c)
+        if (L[offset] == c)
             numc++;
         offset--;
     }

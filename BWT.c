@@ -147,22 +147,23 @@ char *bwt(char *strs)
         else 
             L[idx++] = strs[sa[i]-1]; 
     }
-    free(strs);
+    free(sa);
     return L;
 }
 
 
-int main(void)
+char *bwtSA(char *strs, int *sa)
 {
-    char str[] = "AACTTATAACTAGGGGGGGGGGGGGTTTTTTCACATAATACATATAACCTAACATATTTTTTTTTAACTTATAACTAGGGGGGGGGGGGGTTTTTTCACATAATACATATAACCTAACATATTTTTTTTTTTTTTTTTTTCACATAATATATTAACTAACATATAACCTAACATATATAACTACTAAAACTAACTATAACTAACTATAACTAACATATATTAACTATAACTAACATAACATAACTACTATAACTAACAT";
-
-    char *L = bwt(str);
-    printf("L:%s\n", L);
-    char *T = reversebwt(L);
-    printf("F:%s\n", T);
-    free(L);
-    free(T);
-
-    system("pause");
-    return 0; 
+    int length = strlen(strs);
+    char *L = (char *)malloc(sizeof(char)*(length+1));
+    L[length] = '\0';
+    int idx = 0;
+    for (int i = 0; i < length; i++)
+    {
+        if (sa[i] == 0)
+            L[idx++] = '$';
+        else 
+            L[idx++] = strs[sa[i]-1]; 
+    }
+    return L;
 }
