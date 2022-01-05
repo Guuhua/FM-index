@@ -44,7 +44,7 @@ int *suffixArray(char *strs)
         indx[i] = i;
     }
 
-    for (int k = 1; k < (length << 2); k <<= 1)
+    for (int k = 1; k < (length << 1); k <<= 1)
     {
         for (int i = 0; i < length - k; i++)
             Idxs[indx[i]][2] = Idxs[indx[i+k]][1];
@@ -62,8 +62,10 @@ int *suffixArray(char *strs)
                 Idxs[i][1] = idx++;
             else
                 Idxs[i][1] = idx;
-        }
-        if (idx >= length)
+        }                
+        // for (int i = 0; i < length; i++)
+        //     printf("%d, %d\n", Idxs[i][1], Idxs[i][2]);
+        if (Idxs[length-1][1] >= length)
             break;
     }
     free(Idxs);
@@ -78,7 +80,7 @@ int *suffixArray(char *strs)
 
 int *rankbwt(char *strs)
 {
-    int ascii[128] = {0}, length = strlen(strs);
+    int ascii[NUM] = {0}, length = strlen(strs);
     int *ranks = (int *)malloc(sizeof(int)*length);
     for (int i = 0; i < length; i++)
     {
@@ -91,14 +93,14 @@ int *rankbwt(char *strs)
 
 int *getFirstCol(char *strs)
 {
-    int *F = (int*)calloc(128, sizeof(int));
+    int *F = (int*)calloc(NUM, sizeof(int));
     for (int i = 0; i < strlen(strs); i++)
     {
         int idx = strs[i];
         F[idx]++;
     }
         
-    for (int i = 32; i < 128; i++)
+    for (int i = 32; i < NUM; i++)
     {
         F[i] += F[i-1];
         if (F[i] == strlen(strs))

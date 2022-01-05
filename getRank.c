@@ -4,20 +4,20 @@
 int **getRank(char *L)
 {
     int length = strlen(L);
-    int **p = (int **)malloc(sizeof(int *)*128);
-    for (int i = 0; i < 128; i++)
+    int **p = (int **)malloc(sizeof(int *)*NUM);
+    for (int i = 0; i < NUM; i++)
     {
         p[i] = NULL;
     }
-    int count[128] = {0};
-    int letters[128] = {0}, idxletter = 0;
+    int count[NUM] = {0};
+    int letters[NUM] = {0}, idxletter = 0;
     for (int i = 0; i < length; i++)
     {
         int idx = L[i];
         if (p[idx] == NULL)
         {
-            letters[idxletter++] = idx; 
-            p[idx] = (int *)malloc(sizeof(int)*(length>>GAP+1));  
+            letters[idxletter++] = idx;
+            p[idx] = (int *)malloc(sizeof(int)*((length>>GAP)+1));
         }
     }
 

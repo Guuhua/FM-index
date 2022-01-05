@@ -1,6 +1,4 @@
 #include "FMindex.h"
-#include "getRank.h"
-#include "bwt.h"
 
 
 FM *FMindex(char *strs)
@@ -23,8 +21,8 @@ void range(FM *fmstr, char *p, int *s, int *t)
     for (int i = lenp - 1; i >= 0; i--)
     {
         int idx = p[i];
-        l = rank(fmstr->gRanks, fmstr->L, p[i], l - 1) + fmstr->F[idx-1];
-        r = rank(fmstr->gRanks, fmstr->L, p[i], r) + fmstr->F[idx-1] - 1;
+        l = rank(fmstr->gRanks, fmstr->L, p[i], l - 1) + (fmstr->F)[idx-1];
+        r = rank(fmstr->gRanks, fmstr->L, p[i], r) + (fmstr->F)[idx-1] - 1;
         if (r < l)
         {
             break;
@@ -52,31 +50,11 @@ int *occurrences(FM *fmstr, char *p, int *count)
     return idxs;
 }
 
-void freememory(FM *fm, int *idx)
-{
-    free(idx);
-    free(fm->sa);
-    free(fm->F);
-    free(fm->L);
-    free(fm->gRanks);
-}
-
-int main(void)
-{
-    char strs[] = "ATAACTACTAAAACTAACTATAACTAACTATAACTAACATATATTAACTATAACTAACATAACATAACTACTATAACTAACAT";
-    char p[] = "AACT";
-
-    FM *fm = FMindex(strs);
-    int count = 0;
-    int *idx = occurrences(fm, p, &count);
-
-    for (int i = 0; i < count; i++)
-    {
-        printf("%d\n", idx[i]);
-    }
-    freememory(fm, idx);
-    
-
-    system("pause");
-    return 0; 
-}
+// void freememory(FM *fm, int *idx)
+// {
+//     free(idx);
+//     free(fm->sa);
+//     free(fm->F);
+//     free(fm->L);
+//     free(fm->gRanks);
+// }

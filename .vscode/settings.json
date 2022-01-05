@@ -1,6 +1,8 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "bwt.h": "c"
+        "bwt.h": "c",
+        "FMindex.h": "c",
+        "getRank.h": "c"
     }
 }

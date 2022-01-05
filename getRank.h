@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define GAP 4
+#define NUM 128
 
 // Return all letters' ranks (sampled)
 int **getRank(char*);
