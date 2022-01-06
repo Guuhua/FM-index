@@ -9,6 +9,7 @@ FM *FMindex(char *strs)
     fmstr->sa = suffixArray(strs);
     fmstr->L = bwtSA(strs, fmstr->sa);
     fmstr->F = getFirstCol(strs);
+    free(strs);
     fmstr->gRanks = getRank(fmstr->L);
     return fmstr;
 }
@@ -50,11 +51,15 @@ int *occurrences(FM *fmstr, char *p, int *count)
     return idxs;
 }
 
-// void freememory(FM *fm, int *idx)
-// {
-//     free(idx);
-//     free(fm->sa);
-//     free(fm->F);
-//     free(fm->L);
-//     free(fm->gRanks);
-// }
+void freememory(FM *fm, int *idx)
+{
+    free(idx);
+    free(fm->sa);
+    free(fm->F);
+    free(fm->L);
+    for (int i = 0; i < NUM; i++)
+    {
+        free(fm->gRanks[i]);
+    }
+    free(fm->gRanks);
+}

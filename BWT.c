@@ -47,31 +47,41 @@ int *suffixArray(char *strs)
     for (int k = 1; k < (length << 1); k <<= 1)
     {
         for (int i = 0; i < length - k; i++)
+        {
             Idxs[indx[i]][2] = Idxs[indx[i+k]][1];
-
+        }
         for (int i = length - k; i < length; i++)
+        {
             Idxs[indx[i]][2] = 0;
+        }
 
         qsort(Idxs, length, sizeof(int[3]), cmp);
 
-        int idx = 1;
-        for (int i = 0; i < length; i++) 
+        for (int i = 0, idx = 1; i < length; i++) 
         {
             indx[Idxs[i][0]] = i;
             if (i < length - 1 && (!EQUAL(Idxs[i], Idxs[i + 1])))
+            {
                 Idxs[i][1] = idx++;
+            }
             else
+            {
                 Idxs[i][1] = idx;
+            }
         }                
         // for (int i = 0; i < length; i++)
         //     printf("%d, %d\n", Idxs[i][1], Idxs[i][2]);
         if (Idxs[length-1][1] >= length)
+        { 
             break;
+        }
     }
     free(Idxs);
     int *sa = (int *)malloc(sizeof(int) * length);
     for (int i = 0; i < length; i++)
+    {
         sa[indx[i]] = i;
+    }
     free(indx);
 
     return sa;
@@ -137,17 +147,20 @@ char *reversebwt(char *strs)
 char *bwt(char *strs)
 {
     strs = init(strs);
-    int *sa = suffixArray(strs);
     int length = strlen(strs);
+    int *sa = suffixArray(strs);
     char *L = (char *)malloc(sizeof(char)*(length+1));
     L[length] = '\0';
-    int idx = 0;
     for (int i = 0; i < length; i++)
     {
         if (sa[i] == 0)
-            L[idx++] = '$';
+        {
+            L[i] = '$';
+        }
         else 
-            L[idx++] = strs[sa[i]-1]; 
+        {
+            L[i] = strs[sa[i]-1];
+        }
     }
     free(sa);
     return L;
@@ -159,13 +172,16 @@ char *bwtSA(char *strs, int *sa)
     int length = strlen(strs);
     char *L = (char *)malloc(sizeof(char)*(length+1));
     L[length] = '\0';
-    int idx = 0;
     for (int i = 0; i < length; i++)
     {
         if (sa[i] == 0)
-            L[idx++] = '$';
+        {
+            L[i] = '$';
+        }
         else 
-            L[idx++] = strs[sa[i]-1]; 
+        {
+            L[i] = strs[sa[i]-1];
+        }
     }
     return L;
 }

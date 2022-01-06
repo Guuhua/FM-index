@@ -31,7 +31,6 @@ int **getRank(char *L)
             {
                 p[letters[j]][i>>GAP] = count[letters[j]];
             }
-            
         }
     }
     return p;
@@ -47,7 +46,9 @@ int rank(int **ranks, char *L, char c, int offset)
     while (offset & 15)
     {
         if (L[offset] == c)
+        {
             numc++;
+        }
         offset--;
     }
     int idx = c;

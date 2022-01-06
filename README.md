@@ -1,2 +1,2 @@
 # FM-index
-FM-index c implementation
+FMindex c implementation

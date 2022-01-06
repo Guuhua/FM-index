@@ -29,4 +29,4 @@ void range(FM *fmstr, char *p, int *s, int *t);
 // Return a start index array, find all pattern p common strings in strs 
 int *occurrences(FM *fmstr, char *p, int *count);
 
-// void freememory(FM *fm, int *idx);
+void freememory(FM *fm, int *idx);
