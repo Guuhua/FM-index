@@ -12,7 +12,7 @@
 **example.1** get the BWT string
 
 ```c
-#include "BWT.h"
+#include "bwt.h"
 
 void main(void)
 {
