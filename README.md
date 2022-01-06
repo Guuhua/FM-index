@@ -30,8 +30,8 @@ void main(void)
 
 void main(void)
 {
-	char strs[] = "ASDADW";
-	// FM: struct for fm index to store 
+    char strs[] = "ASDADW";
+    // FM: struct for fm index to store 
     //    .sa     suffix array
     //    .L      BWT string
     //    .F      first letter's index array
