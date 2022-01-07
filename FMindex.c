@@ -9,7 +9,7 @@ FM *FMindex(char *strs)
     fmstr->sa = suffixArray(strs);
     fmstr->L = bwtSA(strs, fmstr->sa);
     fmstr->F = getFirstCol(strs);
-//     free(strs);
+    free(strs);
     fmstr->gRanks = getRank(fmstr->L);
     return fmstr;
 }

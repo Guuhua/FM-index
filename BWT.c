@@ -10,7 +10,7 @@ char *init(char *strs)
         strcpy(p, strs);
         p[length] = '$';
         p[length+1] = '\0';
-        free(strs);
+        // free(strs);
         strs = p;
     }
     return strs;
