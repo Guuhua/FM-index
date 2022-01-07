@@ -9,6 +9,44 @@
 
 ### How to use
 
+> Given string T and pattern P to find the common strings.
+
+#### 1. make
+
+1. git clone this repo
+
+   ```bash
+   $ git clone https://github.com/Guuhua/FM-index.git
+   ```
+
+2. make
+
+   ```bash
+   $ cd FM-index
+   $ make
+   ```
+
+3. run FMindex
+
+   ```bash
+   $ ./FMindex
+   
+   Input the string:
+   AGCTGTCAGTACG
+   
+   Input the pattern string:
+   CAG
+   
+   origin: AGCTGTCAGTACG
+      bwt: GT$CTAGCAATGGC
+        p: CAG
+   
+   Find 1 common strings (begin index -> end index)
+        6 -> 9
+   ```
+
+#### 2. include
+
 **example.1** get the BWT string
 
 ```c
