@@ -95,7 +95,7 @@ void main(void)
 
 ### License
 
-FM-index is released under the MIT license. See the file LICENSE for more details.
+FM-index is released under the MIT license. See the file [LICENSE](./LICENSE) for more details.
 
 ### Contact
 
